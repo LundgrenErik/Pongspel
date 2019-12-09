@@ -1,9 +1,15 @@
 import turtle
+
+
 wn = turtle.Screen()
 wn.title("Benims Pong")
 wn.bgcolor("red")
 wn.setup(width=800, height=600)
 wn.tracer(0)
+
+#Score
+score_a = 0
+score_b = 0
 
 #Racket 1
 racket_a = turtle.Turtle()
@@ -32,6 +38,16 @@ boll.penup()
 boll.goto(0, 0)
 boll.dx = 2
 boll.dy = -2
+
+#Poäng
+poäng = turtle.Turtle()
+poäng.speed(0)
+poäng.color("white")
+poäng.penup()
+poäng.hideturtle()
+poäng.goto(0, 260)
+poäng.write("Spelare A: 0  Spelare B: 0", align="center", font=("Courier", 24, "normal"))
+
 
 #Rörligheter
 def racket_a_up():
@@ -80,10 +96,16 @@ while True:
     if boll.xcor() > 390:
         boll.goto(0, 0)
         boll.dx *= -1
-    
+        score_a += 1
+        poäng.clear()
+        poäng.write("Spelare A: {}  Spelare B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+
     if boll.xcor() < -390:
         boll.goto(0, 0)
         boll.dx *= -1
+        score_b += 1
+        poäng.clear()
+        poäng.write("Spelare A: {}  Spelare B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     #Racket träff
     if (boll.xcor() > 340 and boll.xcor() < 350) and (boll.ycor() < racket_b.ycor() + 40 and boll.ycor() > racket_b.ycor() -40):
